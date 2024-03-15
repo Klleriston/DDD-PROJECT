@@ -3,7 +3,15 @@
   <PropertyGroup>
     <TargetFramework>net8.0</TargetFramework>
     <ImplicitUsings>enable</ImplicitUsings>
-    <Nullable>enable</Nullable>
+    <Nullable>disable</Nullable>
   </PropertyGroup>
+
+  <ItemGroup>
+    <Folder Include="Services\" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\Entities\Entities.csproj" />
+  </ItemGroup>
 
 </Project>
