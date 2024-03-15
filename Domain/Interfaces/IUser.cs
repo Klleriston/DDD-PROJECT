@@ -12,7 +12,7 @@ namespace Domain.Interfaces
             string email,
             string password,
             int age,
-            string phone
+            int phone
             );
     }
 }
