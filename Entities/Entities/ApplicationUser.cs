@@ -13,8 +13,8 @@ namespace Entities.Entities
     {
         [Column("USER_AGE")]
         public int Age { get; set; }
-        [Column("USER_NUMBER")]
-        public int Number { get; set; }
+        [Column("USER_PHONE")]
+        public int Phone { get; set; }
         [Column("USER_TYPE")]
         public TypeUsers UserType { get; set; }
     }
