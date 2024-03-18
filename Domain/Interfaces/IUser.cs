@@ -14,5 +14,10 @@ namespace Domain.Interfaces
             int age,
             int phone
             );
+
+        Task<bool> ExistUser(
+            string email,
+            string password
+            );
     }
 }

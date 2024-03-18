@@ -14,5 +14,10 @@ namespace Application.Interface
             int age,
             int phone
             );
+
+        Task<bool> ExistUser(
+           string email,
+           string password
+           );
     }
 }

@@ -2,10 +2,12 @@
 using Entities.Entities;
 using Infra.Config;
 using Infra.Repository.Generics;
+using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Numerics;
 using System.Text;
 using System.Threading.Tasks;
 
@@ -43,6 +45,24 @@ namespace Infra.Repository
                 return false;
             }
             return true;
+        }
+
+        public async Task<bool> ExistUser(string email, string password)
+        {
+            try
+            {
+                using (var data = new ContextDb(_OptionsBuilder))
+                {
+                    return await data.ApplicationUsers
+                        .Where(u => u.Email == email && u.PasswordHash.Equals(password))
+                        .AsNoTracking()
+                        .AnyAsync();
+                }
+            }
+            catch (Exception)
+            {
+                return false;
+            }
         }
     }
 }
