@@ -7,9 +7,12 @@ using Domain.Services;
 using Infra.Config;
 using Infra.Repository;
 using Infra.Repository.Generics;
+using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.IdentityModel.Tokens;
+using WebApplication.Token;
 
-var builder = WebApplication.CreateBuilder(args);
+var builder = Microsoft.AspNetCore.Builder.WebApplication.CreateBuilder(args);
 
 builder.Services.AddControllers();
 builder.Services.AddEndpointsApiExplorer();
@@ -33,6 +36,36 @@ builder.Services.AddSingleton<IServiceNews, ServiceNews>();
 
 builder.Services.AddSingleton<IUserApplication, ApplicationUser>();
 builder.Services.AddSingleton<INewsApplication, ApplicationNews>();
+
+builder.Services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
+       .AddJwtBearer(option =>
+       {
+           option.TokenValidationParameters = new TokenValidationParameters
+           {
+               ValidateIssuer = false,
+               ValidateAudience = false,
+               ValidateLifetime = true,
+               ValidateIssuerSigningKey = true,
+
+               ValidIssuer = "DDD.Securiry.Bearer",
+               ValidAudience = "DDD.Securiry.Bearer",
+               IssuerSigningKey = JWTSecurity.Create("Secret_Key-12345678")
+           };
+
+           option.Events = new JwtBearerEvents
+           {
+               OnAuthenticationFailed = context =>
+               {
+                   Console.WriteLine("OnAuthenticationFailed: " + context.Exception.Message);
+                   return Task.CompletedTask;
+               },
+               OnTokenValidated = context =>
+               {
+                   Console.WriteLine("OnTokenValidated: " + context.SecurityToken);
+                   return Task.CompletedTask;
+               }
+           };
+       });
 
 var app = builder.Build();
 
