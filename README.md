@@ -2,7 +2,7 @@
 
 - Backend -> ASP .NET 8.0 para criação da api
 - Database -> PostgreSQL para persistencia de dados
-- Frontend -> Angular 14
+
 #
 
 - Github: https://github.com/Klleriston
